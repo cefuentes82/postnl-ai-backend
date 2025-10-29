@@ -13,8 +13,10 @@ import google.generativeai as genai
 app = Flask(__name__)
 CORS(app)  # Allow cross-origin requests from Vercel dashboard
 
-# Configure Gemini
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyA7BfIP9ZNzhy6cYctnJMA0jmdfVbtesn4')
+# Configure Gemini - REQUIRES environment variable
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+if not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY environment variable is required")
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Use Gemini 2.0 Flash (FREE tier, fast, accurate)
